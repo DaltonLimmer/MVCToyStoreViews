@@ -1,0 +1,63 @@
+﻿@using Exercises.Controllers;
+@using Exercises.Models;
+
+@{
+    Layout = null;
+
+}
+
+@model Dictionary<string, Recipe>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Tile</title>
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <header>
+        <h1>ASP.NET MVC Exercises - Views Part 2: Models</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">Board Layout</a></li>
+            <li><a href="#">Tile Layout</a></li>
+            <li><a href="#">Table Layout</a></li>
+        </ul>
+
+    </nav>
+    <section id="main-content">
+        <h2 style="text-align: center;">
+            Recipes
+        </h2>
+        <span>
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+             {
+                 int rating = (int)item.Value.AverageRating;
+                 int ingred = item.Value.Ingredients.Count;
+                 string thing = "ingredient";
+                 if (ingred != 1)
+                 {
+                    thing += "s";
+                 }
+                 <div>
+                 <img style="top: 0; width: 100%;" src="~/Content/images/@(item.Value.Id).jpg" alt="@item.Key is not a hot dog." />
+                 <div>
+                     <h2>@item.Value.Name</h2>
+                 </div>
+                     
+                 <img src="~/Content/images/@(rating)-star.png" style="float: left; width: 33%; bottom: 0;" />
+                 <p>
+                     @ingred  @thing
+                 </p>
+                 </div>
+
+             }
+        </span>
+    </section>
+
+</body>
+</html>

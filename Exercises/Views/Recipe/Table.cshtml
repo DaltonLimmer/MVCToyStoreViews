@@ -1,23 +1,26 @@
-﻿
+﻿@using Exercises.Controllers;
+@using Exercises.Models;
+
 @{
     Layout = null;
+
 }
 
-
-
-
+@model Dictionary<string, Recipe>
 
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-    <link rel="stylesheet" href="~/Content/styles.css" />
+    <title>Table</title>
+    <link  rel="stylesheet" type="text/css" href="~/Content/styles.css" />
+
 </head>
 <body>
     <header>
-        <h1>ASP.NET MVC Exercises - Views Part 2: Models</h1>        
+        <h1>ASP.NET MVC Exercises - Views Part 2: Models</h1>
     </header>
     <nav>
         <ul>
@@ -25,14 +28,13 @@
             <li><a href="#">Tile Layout</a></li>
             <li><a href="#">Table Layout</a></li>
         </ul>
-        
+
     </nav>
     <section id="main-content">
         <h2 style="text-align: center;">
             Recipes
         </h2>
 
-        <div>
             <table>
                 <tr>
                     <td></td>
@@ -40,7 +42,7 @@
                 {
 
                     <td>
-                        <img src="~/Content/images/@(item.Value.Id).jpg" alt="@item.Key is not a hot dog." />
+                        <img class="imgTable" src="~/Content/images/@(item.Value.Id).jpg" alt="@item.Key is not a hot dog." />
                     </td>
             }
                 </tr>
@@ -93,16 +95,13 @@
                     int num = (int)item.Value.AverageRating;
 
                     <td>
-                        <img src="~/Content/images/@(num)-star.png" />
+                        <img class="imgTable" src="~/Content/images/@(num)-star.png" />
                     </td>
             }
                 </tr>
 
 
             </table>
-
-        </div>
-
 
     </section>
 </body>
