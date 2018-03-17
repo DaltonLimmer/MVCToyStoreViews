@@ -27,6 +27,10 @@ namespace Exercises.Controllers
 
         public ActionResult Detail(string id)
         {
+            if (id==null)
+            {
+                return null;
+            }
             var recipe = GetRecipes()[id.ToLower()];
             return View("Detail", recipe);
         }

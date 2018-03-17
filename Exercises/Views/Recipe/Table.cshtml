@@ -2,107 +2,82 @@
 @using Exercises.Models;
 
 @{
-    Layout = null;
-
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @model Dictionary<string, Recipe>
+<div class="container">
+    <h2 style="text-align: center;">
+        Recipes
+    </h2>
 
-<!DOCTYPE html>
+    <table>
+        <tr>
+            <td></td>
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+            {
 
-<html>
-
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Table</title>
-    <link  rel="stylesheet" type="text/css" href="~/Content/styles.css" />
-
-</head>
-<body>
-    <header>
-        <h1>ASP.NET MVC Exercises - Views Part 2: Models</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#">Board Layout</a></li>
-            <li><a href="#">Tile Layout</a></li>
-            <li><a href="#">Table Layout</a></li>
-        </ul>
-
-    </nav>
-    <section id="main-content">
-        <h2 style="text-align: center;">
-            Recipes
-        </h2>
-
-            <table>
-                <tr>
-                    <td></td>
-                    @foreach (KeyValuePair<string, Recipe> item in Model)
-                {
-
-                    <td>
-                        <img class="imgTable" src="~/Content/images/@(item.Value.Id).jpg" alt="@item.Key is not a hot dog." />
-                    </td>
+                <td>
+                    <img class="imgTable" src="~/Content/images/@(item.Value.Id).jpg" alt="@item.Key is not a hot dog." />
+                </td>
             }
-                </tr>
-                <tr>
-                    <td>Name</td>
-                    @foreach (KeyValuePair<string, Recipe> item in Model)
-                {
-                    <td>@item.Value.Name</td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+            {
+                <td>
+                    @Html.ActionLink(item.Value.Name, "Detail", new { Key = item.Key }, null)
+                </td>
             }
-                </tr>
-                <tr>
-                    <td>Type</td>
+        </tr>
+        <tr>
+            <td>Type</td>
 
-                    @foreach (KeyValuePair<string, Recipe> item in Model)
-                {
-                    <td>@item.Value.RecipeType</td>
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+            {
+                <td>@item.Value.RecipeType</td>
             }
-                </tr>
-                <tr>
-                    <td>Cook Time</td>
+        </tr>
+        <tr>
+            <td>Cook Time</td>
 
-                    @foreach (KeyValuePair<string, Recipe> item in Model)
-                {
-                    <td>@item.Value.CookTimeInMinutes min</td>
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+            {
+                <td>@item.Value.CookTimeInMinutes min</td>
             }
 
-                </tr>
+        </tr>
 
-                <tr>
-                    <td>Ingredients</td>
+        <tr>
+            <td>Ingredients</td>
 
-                    @foreach (KeyValuePair<string, Recipe> item in Model)
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+            {
+                int num = item.Value.Ingredients.Count;
+                string thing = "ingredient";
+                if (num != 1)
                 {
-                    int num = item.Value.Ingredients.Count;
-                    string thing = "ingredient";
-                    if (num != 1)
-                    {
-                        thing += "s";
-                    }
-                    <td>
-                        @num @thing
-                    </td>
+                    thing += "s";
+                }
+                <td>
+                    @num @thing
+                </td>
             }
-                </tr>
-                <tr>
-                    <td>Rating</td>
+        </tr>
+        <tr>
+            <td>Rating</td>
 
-                    @foreach (KeyValuePair<string, Recipe> item in Model)
-                {
-                    int num = (int)item.Value.AverageRating;
+            @foreach (KeyValuePair<string, Recipe> item in Model)
+            {
+                int num = (int)item.Value.AverageRating;
 
-                    <td>
-                        <img class="imgTable" src="~/Content/images/@(num)-star.png" />
-                    </td>
+                <td>
+                    <img class="imgTable" src="~/Content/images/@(num)-star.png" />
+                </td>
             }
-                </tr>
+        </tr>
 
 
-            </table>
-
-    </section>
-</body>
-</html>
+    </table>
+</div>
