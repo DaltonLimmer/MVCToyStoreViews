@@ -1,0 +1,86 @@
+﻿@using Exercises.Models;
+@using Exercises.Controllers;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Product>
+
+        <h2 style="text-align: center;">Toy Department</h2>
+        <div class=" propNameContainer">
+            <p class="tableFontSize propNameFontTable">Name</p>
+            <p class="tableFontSize propNameFontTable">Rating</p>
+            <p class="tableFontSize propNameFontTable">Mfr</p>
+            <p class="tableFontSize propNameFontTable">Price</p>
+            <p class="tableFontSize propNameFontTable">Wt(in lbs)</p>
+        </div>
+        <div class="productInfoContainer">
+        <table cellspacing="0">
+            <tr>
+
+                @foreach (Product product in Model)
+                {
+                <td>
+                    <img class="productImage" src="~/Content/images/@(product.ImageName)" alt="@product.Name" />
+                </td>
+                }
+            </tr>
+            <tr>
+
+                @foreach (Product product in Model)
+                {
+
+                    if (product.IsTopSeller)
+                    {
+                         <td style="color: crimson; font-size: 12px;"><strong>Best Seller!</strong></td>
+                    }
+                    if (!product.IsTopSeller)
+                    {
+                        <td></td>
+                    }
+
+                }
+            </tr>
+            <tr class="greyBackground">
+
+                @foreach (Product product in Model)
+                {
+                <td class="tableFontSize">
+                    @Html.ActionLink(product.Name, "Detail", new { id = product.ProductId }, null)
+                </td>
+                }
+            </tr>
+            <tr>
+
+                @foreach (Product product in Model)
+                {
+                    int rating = (int)Math.Round(product.AverageRating);
+                    <td>
+                    <img class="tableRatingImage" src="~/Content/images/@(rating)-star.png" />
+                    </td>
+                }
+            </tr>
+            <tr class="greyBackground">
+
+                @foreach (Product product in Model)
+                {
+                    <td class="tableFontSize">@product.Manufacturer</td>
+                }
+            </tr>
+            <tr>
+
+                @foreach (Product product in Model)
+                {
+                    <td class="tableFontSize" style="color: firebrick"><strong>$@product.Price</strong></td>
+                }
+            </tr>
+            <tr class="greyBackground">
+
+                @foreach (Product product in Model)
+                {
+                    <td class="tableFontSize">@product.WeightIbLbs</td>
+                }
+            </tr>
+        </table>
+        </div>

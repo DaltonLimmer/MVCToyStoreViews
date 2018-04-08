@@ -1,0 +1,39 @@
+﻿@using Exercises.Models;
+@using Exercises.Controllers;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Product>
+
+<!DOCTYPE html>
+
+        <h2 style="text-align: center;">Toy Department</h2>
+
+        @foreach (Product product in Model)
+        {
+            int rating = (int)Math.Round(product.AverageRating);
+                <div class="floatLeft">
+                    <img class="productImage" src="~/Content/images/@(product.ImageName)" alt="@product.Name" />
+                </div>
+                <div class="productInfo">
+                    @if (product.IsTopSeller)
+                    {
+                        <p class="textLeft productNameFont"><strong>@Html.ActionLink(product.Name, "Detail", new { id = product.ProductId }, null) <span class="productInfoFont" style="color: crimson">Best Seller!</span></strong></p>
+                    }
+                    @if (!product.IsTopSeller)
+                    {
+                        <p class="textLeft productNameFont"><strong>@Html.ActionLink(product.Name, "Detail", new { id = product.ProductId }, null)</strong></p>
+                    }
+                    <p class="textLeft productInfoFont">by @product.Manufacturer</p>
+                    @if (product.RemainingStock <= 2)
+                    {
+                        <p class="textLeft productInfoFont" style="color: darkturquoise">Only @(product.RemainingStock) left!</p>
+                    }
+                        <p class="textLeft" style="color: firebrick; margin: 5px"><strong>@product.Price</strong></p>
+                    <p class="textLeft productInfoFont"><strong>Weight </strong>@(product.WeightIbLbs) lbs.</p>
+                    <p class="textLeft productInfoFont"><img class="listRatingImage" src="~/Content/images/@(rating)-star.png" /></p>
+                </div>
+                <hr style="width: 90%">
+        }

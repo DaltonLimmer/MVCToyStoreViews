@@ -1,0 +1,29 @@
+﻿@using Exercises.Models;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model Product
+
+<div class="container">
+    <div class="detailImageContainer">
+        <img src="~/Content/images/@(Model.ImageName)" />
+    </div>
+    <div class="detailInfo">
+        @if (Model.IsTopSeller)
+    {
+        <p class="detailTextLeft"><strong>@Model.Name</strong> <strong><span style="color: crimson">Best Seller!</span></strong></p>
+}
+        @if (!Model.IsTopSeller)
+    {
+        <p class="detailTextLeft"><strong>@Model.Name</strong></p>
+}
+        <p class="detailTextLeft">by @Model.Manufacturer</p>
+        <img class="listRatingImage" style="float: left" src="~/Content/images/@(Math.Round(Model.AverageRating))-star.png" /><br />
+        <p class="detailTextLeft" style="color: firebrick"><strong>Price: $@Model.Price</strong></p>
+        <p class="detailTextLeft">Weight @(Model.WeightIbLbs) lbs</p>
+        <p class="detailTextLeft"><strong>Description:</strong> @Model.Description</p>
+    </div>
+
+</div>

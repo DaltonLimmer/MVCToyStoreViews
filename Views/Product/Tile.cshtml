@@ -1,0 +1,37 @@
+﻿@using Exercises.Models;
+@using Exercises.Controllers;
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<Product>
+
+<!DOCTYPE html>
+
+        <h2 style="text-align: center;">Toy Department</h2>
+
+        @foreach (Product product in Model)
+        {
+            int rating = (int)Math.Round(product.AverageRating);
+        <div id="tileContainer">
+            <img id="tileProductImage" src="~/Content/images/@(product.ImageName)" alt="@product.Name" />
+            @if (product.IsTopSeller)
+             {
+                  <p class="propNameFontTile"><strong>@Html.ActionLink(product.Name, "Detail", new { id = product.ProductId }, null) <span style="color: crimson">Best Seller!</span></strong></p>
+             }
+            @if (!product.IsTopSeller)
+             {
+                  <p class="propNameFontTile"><strong>@Html.ActionLink(product.Name, "Detail", new { id = product.ProductId }, null)</strong></p>
+             }
+            <p class="propNameFontTile">by @product.Manufacturer</p>
+            @if (product.RemainingStock <= 2)
+                    {
+                        <p class="propNameFontTile" style="color: darkturquoise">Only @(product.RemainingStock) left!</p>
+                    }
+            <p class="propNameFontTile" style="color: firebrick; margin: 5px"><strong>@product.Price</strong></p>
+            <p class="propNameFontTile"><strong>Weight </strong>@product.WeightIbLbs lbs</p>
+            <img id="tileRatingImage" src="~/Content/images/@(rating)-star.png" />
+        </div>
+
+        }
